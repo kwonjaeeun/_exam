@@ -20,7 +20,6 @@
         </tr>
         <c:forEach items="${list}" var="data" varStatus="status">
             <tr>
-                 <td>${data.in_cd}</td>
                  <td>${data.dong}</td>
                  <td>${data.jibun}</td>
                  <td>${data.apartment_name}</td>
@@ -31,6 +30,8 @@
                  <td>${data.deal_day}</td>
                  <td>${data.area_for_exclusive_use}</td>
                  <td>${data.flr}</td>
+                <td>${data.in_cd}</td>
+                <td>${location.nm}</td>
             </tr>
         </c:forEach>
     </table>

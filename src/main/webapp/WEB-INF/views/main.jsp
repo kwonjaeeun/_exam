@@ -27,6 +27,7 @@
                 <option value="${item.ex_cd}">${item.nm}</option>
             </c:forEach>
         </select>
+
         <input type="submit" value="검색">
     </form>
 </body>

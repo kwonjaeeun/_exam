@@ -5,8 +5,39 @@
     <select id="selLocationCodeList" resultType="LocationCodeEntity">
         select nm,ex_cd,in_cd
         from location_code
+        <if test="ex_cd!=null and ex_cd!=''">
+            where ex_cd=#{ex_cd}
+        </if>
+
     </select>
     <insert id="saveData">
-
+        insert into apartment_info
+        (dong, jibun, apartment_name,
+         deal_amount, build_year,deal_year,deal_month,
+         deal_day,area_for_exclusive_use,flr,in_cd)
+        values
+        <foreach item="item" collection="arr" open="(" close=")" separator="),(">
+            #{item.dong}, #{item.jibun}, #{item.apartment_name},#{item.deal_amount},
+            #{item.build_year},#{item.deal_year},#{item.deal_month},#{item.deal_day},
+            #{item.area_for_exclusive_use},#{item.flr},#{in_cd}
+        </foreach>
     </insert>
+    <select id="selApartmentHistory" resultType="int">
+        select  Count(*)
+        from apartment_info A
+        inner join location_code B
+        on A.in_cd=B.in_cd
+        where A.deal_year=#{deal_year}
+        and A.deal_month=#{deal_month}
+        and B.ex_cd=#{ex_cd}
+    </select>
+    <select id="selApartment" resultType="Apartmentinfo">
+        select  i_ai, dong, jibun, apartment_name,
+               deal_amount, build_year,deal_year,deal_month,
+               deal_day,area_for_exclusive_use,flr,A.in_cd
+        from apartment_info A inner join location_code B
+        on A.in_cd =B.in_cd
+        where B.ex_cd= #{ex_cd}
+        order by deal_amount desc
+    </select>
 </mapper>
